@@ -9,6 +9,7 @@ public class Book {
 	private String genre;
 	private Integer quantity;
 	
+	
 	Book() {
 		this(null,null,null,null,null,null,null);
 	}
