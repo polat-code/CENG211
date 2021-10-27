@@ -1,9 +1,5 @@
 package sourceCode;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class LibraryQuery {
 	
 	//For first Question
@@ -114,37 +110,29 @@ public class LibraryQuery {
 	//For third Question
 	
 	public static void getMostPenalty(LibraryManagement libManagement) {
-		double maxPenalty = 0.0;
+		double maxPenalty = 0;
 		for(int i = 0; i < 3; i++) {
 			Issue[] issues = libManagement.getIssues()[i];
 			for(Issue issue: issues) {
-				String start_date = null;
-				String stop_date = null;
-				
+				String[] issuedDate = null;
+				String[] returningDate = null;
 				if(issue != null) {
-					//for issuedDate
-					start_date = getDateAsDay(issue.getIssueDate());
-					
-					//For returningDate
-					stop_date = getDateAsDay(issue.getReturningDate());
+					issuedDate = issue.getIssueDate().split("-");
+					returningDate = issue.getReturningDate().split("-");
 				} else {
 					continue;
 				}
 				
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-				long differenceInTime = 0;
-				long differenceInDay = 0;
-				try {
-					Date d1 = sdf.parse(start_date);
-					Date d2 = sdf.parse(stop_date);
-					
-					differenceInTime = d2.getTime() - d1.getTime();
-					differenceInDay = differenceInTime / (1000 * 60 * 60 * 24);
-				}catch(ParseException e) {
-					System.out.println(e);
-				}
 				
-				long penaltyDay = differenceInDay - 14;
+				int day = 0;
+				int year = Integer.parseInt(returningDate[2]) - Integer.parseInt(issuedDate[2]);
+				day += (year * 365);
+				int month = DayManagement.getMonthAsNumber(returningDate[1]) - 
+						DayManagement.getMonthAsNumber(issuedDate[1]);
+				day += (month * 30);
+				day += Integer.parseInt(returningDate[0]) - Integer.parseInt(issuedDate[0]);
+				
+				int penaltyDay = day - 14;
 				double penaltyLira = penaltyDay * 0.5;
 				if(penaltyLira > maxPenalty) {
 					maxPenalty = penaltyLira;
@@ -155,21 +143,6 @@ public class LibraryQuery {
 		
 		System.out.println("3)" +maxPenalty + " Lira");
 	}
-	
-	private static String getDateAsDay(String date) {
-		
-		String resultDate = "";
-		String extraZeroForDay = "";
-		String[] dateArray = date.split("-");
-		if(dateArray[0].length() == 1) {
-			extraZeroForDay = "0";
-		}
-		resultDate = extraZeroForDay +  dateArray[0] + "-"+ 
-						DayManagement.getMonthAsNumber(dateArray[1]) + 
-						"-" + "20" + dateArray[2] + " 01:10:20";
-		return resultDate;
-	}
-	
 	
 	//For Fourth Question
 	public static void getMostCopies(Library... libraries) {
