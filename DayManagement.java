@@ -33,7 +33,4 @@ public class DayManagement {
 		}
 	}
 	
-	public void calculateDayDifference(int firstMonth,int secondMonth) {
-		
-	}
 }
