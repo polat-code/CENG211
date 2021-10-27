@@ -28,19 +28,19 @@ public class Issue {
 		this.id = id;
 	}
 
-	public String getMember() {
+	public String getMemberId() {
 		return memberId;
 	}
 
-	public void setMember(String member) {
+	public void setMemberId(String member) {
 		this.memberId = member;
 	}
 
-	public String getBook() {
+	public String getBookId() {
 		return bookId;
 	}
 
-	public void setBook(String book) {
+	public void setBookId(String book) {
 		this.bookId = book;
 	}
 

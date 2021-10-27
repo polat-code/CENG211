@@ -31,4 +31,9 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public boolean equals(Issue issue) {
+		return id.equals(issue.getMemberId());
+	}
+	
 }

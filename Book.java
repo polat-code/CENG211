@@ -9,7 +9,6 @@ public class Book {
 	private String genre;
 	private Integer quantity;
 	
-	
 	Book() {
 		this(null,null,null,null,null,null,null);
 	}
@@ -64,6 +63,10 @@ public class Book {
 	}
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+	
+	public String toString() {
+		return this.title;
 	}
 	
 }
